@@ -67,30 +67,32 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
   };
 
   return (
-    <Card className="shadow-soft hover:shadow-medium transition-[box-shadow] duration-300">
-      <CardContent className="p-8">
-        <div className="space-y-6">
+    <Card className="bg-gradient-card border-border/50 shadow-medium hover:shadow-glow hover:border-primary/30 transition-all duration-500">
+      <CardContent className="p-10">
+        <div className="space-y-8">
           <div className="text-center">
-            <h2 className="text-2xl font-semibold mb-2">Upload Your Resume</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-3xl font-semibold mb-3 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Upload Your Resume</h2>
+            <p className="text-muted-foreground text-lg">
               Get AI-powered insights to improve your resume and land your dream job
             </p>
           </div>
 
           <div
             className={`
-              relative border-2 border-dashed rounded-lg p-8 text-center transition-colors duration-200
+              relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300
               ${isDragOver 
-                ? 'border-primary bg-accent/50' 
-                : 'border-border hover:border-primary/50'
+                ? 'border-primary bg-primary/10 shadow-glow' 
+                : 'border-border/50 hover:border-primary/50 hover:bg-primary/5'
               }
             `}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
           >
-            <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-lg font-medium mb-2">Drop your resume here</p>
+            <div className="p-4 bg-gradient-primary rounded-xl mx-auto mb-6 w-fit shadow-medium">
+              <Upload className="h-8 w-8 text-primary-foreground" />
+            </div>
+            <p className="text-xl font-medium mb-3">Drop your resume here</p>
             <p className="text-sm text-muted-foreground mb-4">
               Supports .txt files or paste text directly below
             </p>
@@ -105,32 +107,37 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
             />
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             <label className="text-sm font-medium flex items-center gap-2">
-              <FileText className="h-4 w-4" />
+              <div className="p-1 bg-gradient-primary rounded">
+                <FileText className="h-4 w-4 text-primary-foreground" />
+              </div>
               Or paste your resume text
             </label>
             <Textarea
               placeholder="Paste your complete resume text here..."
               value={resumeText}
               onChange={(e) => setResumeText(e.target.value)}
-              className="min-h-[200px] resize-none"
+              className="min-h-[200px] resize-none bg-background/50 border-border/50 focus:border-primary/50 transition-colors duration-200"
             />
           </div>
 
           <Button 
             onClick={handleSubmit}
             disabled={isAnalyzing || !resumeText.trim()}
-            className="w-full"
+            className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
             size="lg"
           >
             {isAnalyzing ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 Analyzing Resume...
               </>
             ) : (
-              'Analyze Resume'
+              <>
+                <FileText className="mr-2 h-5 w-5" />
+                Analyze Resume
+              </>
             )}
           </Button>
         </div>

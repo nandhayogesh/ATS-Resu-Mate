@@ -49,21 +49,25 @@ export const AnalysisResults = ({ analysis }: AnalysisResultsProps) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Overall Score */}
-      <Card className="shadow-medium">
-        <CardHeader className="text-center">
-          <CardTitle className="flex items-center justify-center gap-3">
-            <Target className="h-6 w-6 text-primary" />
-            Resume Analysis Score
+      <Card className="bg-gradient-card border-border/50 shadow-strong">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="flex items-center justify-center gap-3 text-2xl">
+            <div className="p-2 bg-gradient-primary rounded-lg shadow-medium">
+              <Target className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              Resume Analysis Score
+            </span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-center space-y-4">
-          <div className={`text-6xl font-bold ${getScoreColor(analysis.overallScore)}`}>
+        <CardContent className="text-center space-y-6 pb-8">
+          <div className={`text-7xl font-bold ${getScoreColor(analysis.overallScore)} drop-shadow-lg`}>
             {analysis.overallScore}/100
           </div>
-          <Progress value={analysis.overallScore} className="w-full max-w-md mx-auto" />
-          <Badge variant={getScoreBadgeVariant(analysis.overallScore)} className="text-lg px-4 py-2">
+          <Progress value={analysis.overallScore} className="w-full max-w-md mx-auto h-3 shadow-soft" />
+          <Badge variant={getScoreBadgeVariant(analysis.overallScore)} className="text-lg px-6 py-3 shadow-medium">
             {analysis.overallScore >= 80 ? 'Excellent' : 
              analysis.overallScore >= 60 ? 'Good' : 'Needs Improvement'}
           </Badge>

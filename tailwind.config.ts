@@ -22,11 +22,14 @@ export default {
 				'soft': 'var(--shadow-soft)',
 				'medium': 'var(--shadow-medium)',
 				'strong': 'var(--shadow-strong)',
+				'glow': 'var(--shadow-glow)',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-secondary': 'var(--gradient-secondary)',
 				'gradient-accent': 'var(--gradient-accent)',
+				'gradient-steam': 'var(--gradient-steam)',
+				'gradient-card': 'var(--gradient-card)',
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
