@@ -67,7 +67,7 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
   };
 
   return (
-    <Card className="bg-gradient-card border-border/50 shadow-medium hover:shadow-glow hover:border-primary/30 transition-all duration-500">
+  <Card className="bg-gradient-card border-border/50 shadow-medium transition-all duration-500">
       <CardContent className="p-10">
         <div className="space-y-8">
           <div className="text-center">
@@ -81,8 +81,8 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
             className={`
               relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300
               ${isDragOver 
-                ? 'border-primary bg-primary/10 shadow-glow' 
-                : 'border-border/50 hover:border-primary/50 hover:bg-primary/5'
+                ? 'border-primary bg-primary/10' 
+                : 'border-border/50'
               }
             `}
             onDrop={handleDrop}
@@ -118,14 +118,14 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
               placeholder="Paste your complete resume text here..."
               value={resumeText}
               onChange={(e) => setResumeText(e.target.value)}
-              className="min-h-[200px] resize-none bg-background/50 border-border/50 focus:border-primary/50 transition-colors duration-200"
+              className="min-h-[200px] resize-none bg-background/50 border-border/50 transition-colors duration-200"
             />
           </div>
 
           <Button 
             onClick={handleSubmit}
             disabled={isAnalyzing || !resumeText.trim()}
-            className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
+            className="w-full bg-gradient-primary transition-all duration-300"
             size="lg"
           >
             {isAnalyzing ? (

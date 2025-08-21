@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Analyzer from "./pages/Analyzer";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/About";
+
 
 const queryClient = new QueryClient();
 
@@ -14,8 +18,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+  {/* Existing navbar will be rendered by the page components themselves */}
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/analyzer" element={<Analyzer />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
