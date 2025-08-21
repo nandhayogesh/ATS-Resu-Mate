@@ -17,7 +17,7 @@ const HomeNavbar: React.FC<HomeNavbarProps> = ({ analysis, resetAnalysis }) => (
             <img src="/logo.png" alt="ATS Resu-Mate Logo" className="object-contain h-20 w-20 scale-110 bg-transparent" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">ATS Resu-Mate</h1>
+            <h1 className="text-2xl font-bold text-primary">ATS Resu-Mate</h1>
             <p className="text-sm text-muted-foreground">Powered by Advanced AI Analysis</p>
           </div>
         </div>
