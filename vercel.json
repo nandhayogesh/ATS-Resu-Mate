@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/analyze-resume-text.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/((?!api/.*).*)",
