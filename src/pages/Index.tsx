@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ResumeUpload } from '@/components/ResumeUpload';
-import { AnalysisResults } from '@/components/AnalysisResults';
-import { AIService } from '@/services/aiService';
+import AnalysisResults from '@/components/AnalysisResults';
 import HomeNavbar from "../components/HomeNavbar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,42 +26,37 @@ import {
   ArrowRight
 } from "lucide-react";
 
-interface AnalysisData {
-  overallScore: number;
-  strengths: string[];
-  improvements: string[];
-  skills: { name: string; confidence: number }[];
-  atsOptimization: {
-    score: number;
-    issues: string[];
-    recommendations: string[];
-  };
-  interviewQuestions: string[];
-  salaryEstimate: {
-    min: number;
-    max: number;
-    currency: string;
-  };
-}
-
 const Index = () => {
-  const [analysis, setAnalysis] = useState<AnalysisData | null>(null);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const handleResumeSubmit = async (resumeText: string) => {
     setIsAnalyzing(true);
     try {
-      const result = await AIService.analyzeResume(resumeText);
-      setAnalysis(result);
+      const response = await fetch('/api/analyze-resume-text', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ resumeText }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Analysis failed');
+      }
+
+      const data = await response.json();
+      setSuggestions(data.suggestions || []);
     } catch (error) {
       console.error('Analysis failed:', error);
+      setSuggestions(['Unable to analyze resume. Please try again.']);
     } finally {
       setIsAnalyzing(false);
     }
   };
 
   const resetAnalysis = () => {
-    setAnalysis(null);
+    setSuggestions([]);
   };
 
   const stats = [
@@ -100,10 +94,10 @@ const Index = () => {
 
   return (
     <>
-      <HomeNavbar analysis={analysis} resetAnalysis={resetAnalysis} />
+      <HomeNavbar />
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
         <main className="container mx-auto px-4">
-          {!analysis ? (
+          {suggestions.length === 0 ? (
             <>
               {/* Hero Section */}
               <section className="py-12 md:py-20 text-center">
@@ -275,7 +269,7 @@ const Index = () => {
             </>
           ) : (
             <div className="max-w-6xl mx-auto py-8">
-              <AnalysisResults analysis={analysis} />
+              <AnalysisResults suggestions={suggestions} />
             </div>
           )}
         </main>
