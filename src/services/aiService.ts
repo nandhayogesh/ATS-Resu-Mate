@@ -25,7 +25,11 @@ export class AIService {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ resumeText })
       });
-      if (!response.ok) throw new Error('TextRazor API error: ' + response.statusText);
+      
+      if (!response.ok) {
+        throw new Error(`TextRazor API error: ${response.statusText}`);
+      }
+      
       const data = await response.json();
       return data.suggestions || [];
     } catch (error) {

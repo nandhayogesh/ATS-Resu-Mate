@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing resumeText' });
   }
 
-  const TEXTRAZOR_API_KEY = 'b9752215b37f0abf0ad509b6fc17fdde2e5f36d070847625e005306a';
+  const TEXTRAZOR_API_KEY = process.env.TEXTRAZOR_API_KEY || 'b9752215b37f0abf0ad509b6fc17fdde2e5f36d070847625e005306a';
   
   try {
     console.log('Analyzing resume text with TextRazor...');

@@ -24,7 +24,6 @@ const HomeNavbar: React.FC<HomeNavbarProps> = ({ analysis, resetAnalysis }) => (
         <nav className="flex gap-8">
           <NavLink to="/" className={({ isActive }) => isActive ? "text-primary font-semibold bg-card px-4 py-2 rounded-xl" : "text-foreground hover:text-primary px-4 py-2 rounded-xl transition-colors"}>Home</NavLink>
           <NavLink to="/analyzer" className={({ isActive }) => isActive ? "text-primary font-semibold bg-card px-4 py-2 rounded-xl" : "text-foreground hover:text-primary px-4 py-2 rounded-xl transition-colors"}>Analyzer</NavLink>
-          <NavLink to="/dashboard" className={({ isActive }) => isActive ? "text-primary font-semibold bg-card px-4 py-2 rounded-xl" : "text-foreground hover:text-primary px-4 py-2 rounded-xl transition-colors"}>Dashboard</NavLink>
           <NavLink to="/about" className={({ isActive }) => isActive ? "text-primary font-semibold bg-card px-4 py-2 rounded-xl" : "text-foreground hover:text-primary px-4 py-2 rounded-xl transition-colors"}>About</NavLink>
         </nav>
         <div className="flex items-center gap-3">

@@ -1,73 +1,141 @@
-# Welcome to your Lovable project
+# ProfiBoost Engine
 
-## Project info
+A modern, AI-powered resume analyzer that helps optimize resumes for better career opportunities. Built with React, TypeScript, and powered by TextRazor AI for intelligent resume analysis.
 
-**URL**: https://lovable.dev/projects/3159397e-2069-4b59-9867-b269d3107b48
+## 🚀 Features
 
-## How can I edit this code?
+- **AI-Powered Analysis**: Advanced text analysis using TextRazor API
+- **Text Upload**: Simple and secure text file upload (.txt format)
+- **Smart Suggestions**: Intelligent recommendations for resume improvement
+- **Professional UI**: Modern, responsive design built with Tailwind CSS
+- **Real-time Analysis**: Fast and accurate resume insights
+- **Career Insights**: Industry-specific recommendations and keyword optimization
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Shadcn/ui components
+- **AI Service**: TextRazor API for text analysis
+- **Deployment**: Vercel with serverless functions
+- **Build Tool**: Vite for fast development and optimized builds
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3159397e-2069-4b59-9867-b269d3107b48) and start prompting.
+## 🎯 How It Works
 
-Changes made via Lovable will be committed automatically to this repo.
+1. **Upload**: Upload your resume as a text file (.txt format)
+2. **Analyze**: Our AI analyzes your resume content using advanced NLP
+3. **Improve**: Get personalized suggestions and recommendations
+4. **Optimize**: Apply suggestions to enhance your resume's effectiveness
 
-**Use your preferred IDE**
+## 🚀 Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js 18+ or Bun
+- A TextRazor API key (get one at [textrazor.com](https://www.textrazor.com/))
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/profi-boost-engine.git
+   cd profi-boost-engine
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Create environment variables:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Add your TextRazor API key to the environment variables.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## 📁 Project Structure
+
+```
+profi-boost-engine/
+├── api/                    # Vercel serverless functions
+│   └── analyze-resume-text.js
+├── public/                 # Static assets
+├── src/
+│   ├── components/         # React components
+│   │   ├── ui/            # Shadcn/ui components
+│   │   ├── AnalysisResults.tsx
+│   │   └── ResumeUpload.tsx
+│   ├── hooks/             # Custom React hooks
+│   ├── lib/               # Utility functions
+│   ├── pages/             # Page components
+│   │   ├── Index.tsx      # Home page
+│   │   ├── Analyzer.tsx   # Resume analyzer
+│   │   ├── About.tsx      # About page
+│   │   └── NotFound.tsx   # 404 page
+│   └── services/          # API services
+│       └── aiService.ts
+├── vercel.json            # Vercel deployment config
+└── package.json
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+For production deployment on Vercel, add these environment variables:
 
-**Use GitHub Codespaces**
+- `TEXTRAZOR_API_KEY`: Your TextRazor API key
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🚀 Deployment
 
-## What technologies are used for this project?
+### Vercel (Recommended)
 
-This project is built with:
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy!
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The project is configured for Vercel with serverless functions for API endpoints.
 
-## How can I deploy this project?
+### Manual Build
 
-Simply open [Lovable](https://lovable.dev/projects/3159397e-2069-4b59-9867-b269d3107b48) and click on Share -> Publish.
+```bash
+npm run build
+```
 
-## Can I connect a custom domain to my Lovable project?
+The built files will be in the `dist` directory.
 
-Yes, you can!
+## 📄 API Endpoints
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- `POST /api/analyze-resume-text`: Analyzes resume text and returns improvement suggestions
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- [TextRazor](https://www.textrazor.com/) for AI-powered text analysis
+- [Shadcn/ui](https://ui.shadcn.com/) for beautiful UI components
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Vite](https://vitejs.dev/) for fast development experience
+
+## 📞 Support
+
+If you have any questions or need support, please open an issue in the GitHub repository.
+
+---
+
+**ProfiBoost Engine** - Elevate your career with AI-powered resume optimization! 🚀
