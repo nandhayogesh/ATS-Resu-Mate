@@ -1,34 +1,36 @@
 import { useState, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Upload, FileText, Loader2 } from 'lucide-react';
+import { Upload, Loader2, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { AIService } from '@/services/aiService';
 
 interface ResumeUploadProps {
-  onResumeSubmit: (resumeText: string) => void;
+  onResumeSubmit: (suggestions: string[]) => void;
   isAnalyzing: boolean;
 }
 
 export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps) => {
-  const [resumeText, setResumeText] = useState('');
   const [isDragOver, setIsDragOver] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [resumeText, setResumeText] = useState('');
   const { toast } = useToast();
 
   const handleFileUpload = useCallback((file: File) => {
     if (file.type !== 'text/plain' && !file.name.endsWith('.txt')) {
       toast({
         title: "Unsupported file type",
-        description: "Please upload a text file (.txt) or paste your resume text directly.",
+        description: "Please upload a text file (.txt) only.",
         variant: "destructive",
       });
       return;
     }
-
+    
     const reader = new FileReader();
     reader.onload = (e) => {
       const text = e.target?.result as string;
       setResumeText(text);
+      setSelectedFile(file);
     };
     reader.readAsText(file);
   }, [toast]);
@@ -36,7 +38,6 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
       handleFileUpload(files[0]);
@@ -53,27 +54,32 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
     setIsDragOver(false);
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!resumeText.trim()) {
       toast({
-        title: "Resume required",
-        description: "Please upload a resume file or paste your resume text.",
+        title: "Resume text required",
+        description: "Please upload a text file or the file is empty.",
         variant: "destructive",
       });
       return;
     }
-
-    onResumeSubmit(resumeText.trim());
+    try {
+      toast({ title: "Analyzing resume..." });
+      const suggestions = await AIService.analyzeResumeTextForImprovements(resumeText);
+      onResumeSubmit(suggestions);
+    } catch (error: any) {
+      toast({ title: "Analysis failed", description: error.message, variant: "destructive" });
+    }
   };
 
   return (
-  <Card className="bg-gradient-card border-border/50 shadow-medium transition-all duration-500">
+    <Card className="bg-gradient-card border-border/50 shadow-medium transition-all duration-500">
       <CardContent className="p-10">
         <div className="space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-semibold mb-3 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Upload Your Resume</h2>
             <p className="text-muted-foreground text-lg">
-              Get AI-powered insights to improve your resume and land your dream job
+              Upload a text file (.txt) of your resume to get AI-powered improvement suggestions.
             </p>
           </div>
 
@@ -90,36 +96,29 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
             onDragLeave={handleDragLeave}
           >
             <div className="p-4 bg-gradient-primary rounded-xl mx-auto mb-6 w-fit shadow-medium">
-              <Upload className="h-8 w-8 text-primary-foreground" />
+              <FileText className="h-8 w-8 text-primary-foreground" />
             </div>
-            <p className="text-xl font-medium mb-3">Drop your resume here</p>
+            <p className="text-xl font-medium mb-3">Drop your resume text file here</p>
             <p className="text-sm text-muted-foreground mb-4">
-              Supports .txt files or paste text directly below
+              Supports .txt files only
             </p>
             <input
               type="file"
-              accept=".txt"
+              accept=".txt,text/plain"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) handleFileUpload(file);
               }}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-          </div>
-
-          <div className="space-y-4">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <div className="p-1 bg-gradient-primary rounded">
-                <FileText className="h-4 w-4 text-primary-foreground" />
+            {selectedFile && (
+              <div className="mt-4 text-sm text-primary">
+                Selected: {selectedFile.name}
+                <div className="text-xs text-muted-foreground mt-1">
+                  {resumeText.length} characters loaded
+                </div>
               </div>
-              Or paste your resume text
-            </label>
-            <Textarea
-              placeholder="Paste your complete resume text here..."
-              value={resumeText}
-              onChange={(e) => setResumeText(e.target.value)}
-              className="min-h-[200px] resize-none bg-background/50 border-border/50 transition-colors duration-200"
-            />
+            )}
           </div>
 
           <Button 

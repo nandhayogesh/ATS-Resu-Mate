@@ -9,13 +9,13 @@ const Analyzer = () => {
   const [analysis, setAnalysis] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  const handleResumeSubmit = async (resumeText: string) => {
+  const handleResumeSubmit = async (suggestions: string[]) => {
     setIsAnalyzing(true);
     try {
-      const result = await AIService.analyzeResume(resumeText);
-      setAnalysis(result);
+      setAnalysis({ improvements: suggestions });
     } catch (error) {
       console.error('Analysis failed:', error);
+      setAnalysis({ improvements: ['Analysis failed. Please try again.'] });
     } finally {
       setIsAnalyzing(false);
     }
@@ -36,7 +36,12 @@ const Analyzer = () => {
           <ResumeUpload onResumeSubmit={handleResumeSubmit} isAnalyzing={isAnalyzing} />
         ) : (
           <div className="max-w-6xl mx-auto">
-            <AnalysisResults analysis={analysis} />
+            <h2 className="text-2xl font-bold mb-4">Improvement Suggestions</h2>
+            <ul className="list-disc pl-6 text-lg">
+              {analysis.improvements.map((suggestion: string, idx: number) => (
+                <li key={idx}>{suggestion}</li>
+              ))}
+            </ul>
             <button onClick={resetAnalysis} className="mt-6 text-sm text-primary hover:text-primary/80 hover:underline transition-colors duration-200">New Analysis</button>
           </div>
         )}
