@@ -75,38 +75,38 @@ const About = () => {
     <>
       <HomeNavbar />
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
-        <div className="container mx-auto px-4 py-16 max-w-6xl">
+        <div className="container mx-auto px-4 py-8 md:py-16 max-w-6xl">
           {/* Hero Section */}
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <div className="bg-primary/10 p-4 rounded-2xl">
-                <Award className="h-12 w-12 text-primary" />
+          <div className="text-center mb-12 md:mb-16">
+            <div className="flex items-center justify-center mb-4 md:mb-6">
+              <div className="bg-primary/10 p-3 md:p-4 rounded-2xl">
+                <Award className="h-8 w-8 md:h-12 md:w-12 text-primary" />
               </div>
             </div>
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-              About ATS Resu-Mate
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent px-2">
+              About Talent Lens
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
               Your intelligent resume companion powered by advanced AI technology. 
               Transform your resume into a powerful tool that gets noticed by employers and passes through ATS filters with confidence.
             </p>
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <Badge variant="secondary" className="px-4 py-2">
-                <Zap className="h-4 w-4 mr-2" />
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-6 md:mt-8 px-4">
+              <Badge variant="secondary" className="px-3 md:px-4 py-2 text-xs md:text-sm">
+                <Zap className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                 Free Analysis
               </Badge>
-              <Badge variant="outline" className="px-4 py-2">
-                <Shield className="h-4 w-4 mr-2" />
+              <Badge variant="outline" className="px-3 md:px-4 py-2 text-xs md:text-sm">
+                <Shield className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                 Secure & Private
               </Badge>
             </div>
           </div>
 
           {/* Mission Statement */}
-          <Card className="mb-16 border-none shadow-lg bg-card/80 backdrop-blur-sm">
-            <CardHeader className="text-center">
-              <CardTitle className="text-3xl mb-4">Our Mission</CardTitle>
-              <CardDescription className="text-lg max-w-4xl mx-auto">
+          <Card className="mb-12 md:mb-16 border-none shadow-lg bg-card/80 backdrop-blur-sm">
+            <CardHeader className="text-center p-6 md:p-8">
+              <CardTitle className="text-2xl md:text-3xl mb-3 md:mb-4">Our Mission</CardTitle>
+              <CardDescription className="text-sm md:text-lg max-w-4xl mx-auto">
                 We believe everyone deserves a fair chance to showcase their talents. Our mission is to democratize access to professional resume optimization tools, 
                 helping job seekers at all levels create compelling resumes that stand out in today's competitive job market.
               </CardDescription>
@@ -114,21 +114,23 @@ const About = () => {
           </Card>
 
           {/* Key Features */}
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold text-center mb-12">Powerful Features</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 md:mb-12 px-4">Powerful Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {features.map((feature, index) => (
                 <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-none shadow-md">
-                  <CardHeader>
-                    <div className="flex items-center gap-4">
-                      <div className="bg-primary/10 p-3 rounded-xl group-hover:bg-primary/20 transition-colors">
-                        {feature.icon}
+                  <CardHeader className="p-4 md:p-6">
+                    <div className="flex items-center gap-3 md:gap-4">
+                      <div className="bg-primary/10 p-2 md:p-3 rounded-xl group-hover:bg-primary/20 transition-colors">
+                        <div className="scale-75 md:scale-100">
+                          {feature.icon}
+                        </div>
                       </div>
-                      <CardTitle className="text-xl">{feature.title}</CardTitle>
+                      <CardTitle className="text-lg md:text-xl">{feature.title}</CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base leading-relaxed">
+                  <CardContent className="p-4 md:p-6 pt-0">
+                    <CardDescription className="text-sm md:text-base leading-relaxed">
                       {feature.description}
                     </CardDescription>
                   </CardContent>
@@ -138,20 +140,19 @@ const About = () => {
           </div>
 
           {/* Benefits Section */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16">
             <Card className="border-none shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-3xl mb-4 flex items-center gap-3">
-                  <TrendingUp className="h-8 w-8 text-primary" />
-                  Why Choose ATS Resu-Mate?
+              <CardHeader className="p-4 md:p-6">
+                <CardTitle className="text-2xl md:text-3xl mb-3 md:mb-4 flex items-center gap-2 md:gap-3">
+                  <TrendingUp className="h-6 w-6 md:h-8 md:w-8 text-primary" />
+                  Why Choose Talent Lens?
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{benefit}</span>
+              <CardContent className="p-4 md:p-6 pt-0">
+                <div className="space-y-3 md:space-y-4">{benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-2 md:gap-3">
+                      <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm md:text-base text-muted-foreground">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -291,7 +292,7 @@ const About = () => {
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-6">Ready to Boost Your Resume?</h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join thousands of job seekers who have improved their resumes with ATS Resu-Mate. 
+              Join thousands of job seekers who have improved their resumes with Talent Lens. 
               Start your free analysis today and take the first step towards landing your dream job.
             </p>
             <div className="flex items-center justify-center gap-4">

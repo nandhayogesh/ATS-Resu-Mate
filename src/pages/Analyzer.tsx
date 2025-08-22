@@ -9,13 +9,22 @@ const Analyzer = () => {
   const [analysis, setAnalysis] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  const handleResumeSubmit = async (suggestions: string[]) => {
+  const handleResumeSubmit = async (resumeText: string) => {
     setIsAnalyzing(true);
     try {
-      setAnalysis({ improvements: suggestions });
+      const result = await AIService.analyzeResume(resumeText);
+      setAnalysis(result);
     } catch (error) {
       console.error('Analysis failed:', error);
-      setAnalysis({ improvements: ['Analysis failed. Please try again.'] });
+      setAnalysis({ 
+        overallScore: 0,
+        strengths: [],
+        improvements: ['Analysis failed. Please try again.'],
+        skills: [],
+        atsOptimization: { score: 0, issues: [], recommendations: [] },
+        interviewQuestions: [],
+        salaryEstimate: { min: 0, max: 0, currency: '$' }
+      });
     } finally {
       setIsAnalyzing(false);
     }
@@ -29,20 +38,17 @@ const Analyzer = () => {
     <>
   <HomeNavbar analysis={analysis} resetAnalysis={resetAnalysis} />
       <div className="min-h-screen bg-gradient-steam">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-4">Analyzer</h1>
-        <p className="mb-8 text-lg text-muted-foreground">Upload your resume to get AI-powered analysis.</p>
+      <div className="container mx-auto px-4 py-6 md:py-8">
+        <h1 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">Analyzer</h1>
+        <p className="mb-6 md:mb-8 text-base md:text-lg text-muted-foreground">Upload your resume to get AI-powered analysis.</p>
         {!analysis ? (
           <ResumeUpload onResumeSubmit={handleResumeSubmit} isAnalyzing={isAnalyzing} />
         ) : (
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Improvement Suggestions</h2>
-            <ul className="list-disc pl-6 text-lg">
-              {analysis.improvements.map((suggestion: string, idx: number) => (
-                <li key={idx}>{suggestion}</li>
-              ))}
-            </ul>
-            <button onClick={resetAnalysis} className="mt-6 text-sm text-primary hover:text-primary/80 hover:underline transition-colors duration-200">New Analysis</button>
+            <AnalysisResults analysis={analysis} />
+            <div className="text-center mt-6 md:mt-8">
+              <button onClick={resetAnalysis} className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors duration-200">New Analysis</button>
+            </div>
           </div>
         )}
       </div>

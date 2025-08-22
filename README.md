@@ -1,4 +1,4 @@
-# ATS Resu-Mate
+# TalentLens
 
 A professional AI-powered resume analyzer designed to optimize resumes for Applicant Tracking Systems (ATS) and improve career prospects. Built with modern web technologies and powered by TextRazor AI for intelligent resume analysis and optimization recommendations.
 
@@ -66,7 +66,7 @@ A professional AI-powered resume analyzer designed to optimize resumes for Appli
 ## Project Architecture
 
 ```
-ats-resu-mate/
+talentlens/
 ├── api/                    # Vercel serverless functions
 │   └── analyze-resume-text.js
 ├── public/                 # Static assets and images
@@ -174,4 +174,4 @@ For technical support or questions, please create an issue in the GitHub reposit
 
 ---
 
-**ATS Resu-Mate** - Professional Resume Optimization Platform
+**TalentLens** - Professional Resume Optimization Platform

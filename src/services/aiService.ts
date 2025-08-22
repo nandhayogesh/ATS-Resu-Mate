@@ -9,11 +9,6 @@ interface AnalysisResult {
     recommendations: string[];
   };
   interviewQuestions: string[];
-  salaryEstimate: {
-    min: number;
-    max: number;
-    currency: string;
-  };
 }
 
 export class AIService {
@@ -161,13 +156,6 @@ export class AIService {
       "Where do you see yourself in the next 5 years?"
     ];
 
-    // Salary estimation (simplified)
-    const salaryEstimate = {
-      min: 45000,
-      max: 85000,
-      currency: '$'
-    };
-
     return {
       overallScore: Math.min(Math.max(score, 0), 100),
       strengths,
@@ -177,8 +165,7 @@ export class AIService {
         issues: atsIssues,
         recommendations: atsRecommendations
       },
-      interviewQuestions,
-      salaryEstimate
+      interviewQuestions
     };
   }
 
@@ -223,12 +210,7 @@ export class AIService {
           "Tell me about your professional background.",
           "What are your greatest strengths?",
           "How do you handle challenges at work?"
-        ],
-        salaryEstimate: {
-          min: 50000,
-          max: 80000,
-          currency: '$'
-        }
+        ]
       };
     }
   }

@@ -3,10 +3,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Upload, Loader2, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { AIService } from '@/services/aiService';
 
 interface ResumeUploadProps {
-  onResumeSubmit: (suggestions: string[]) => void;
+  onResumeSubmit: (resumeText: string) => void;
   isAnalyzing: boolean;
 }
 
@@ -63,29 +62,24 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
       });
       return;
     }
-    try {
-      toast({ title: "Analyzing resume..." });
-      const suggestions = await AIService.analyzeResumeTextForImprovements(resumeText);
-      onResumeSubmit(suggestions);
-    } catch (error: any) {
-      toast({ title: "Analysis failed", description: error.message, variant: "destructive" });
-    }
+    
+    onResumeSubmit(resumeText);
   };
 
   return (
     <Card className="bg-gradient-card border-border/50 shadow-medium transition-all duration-500">
-      <CardContent className="p-10">
-        <div className="space-y-8">
+      <CardContent className="p-4 md:p-10">
+        <div className="space-y-6 md:space-y-8">
           <div className="text-center">
-            <h2 className="text-3xl font-semibold mb-3 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Upload Your Resume</h2>
-            <p className="text-muted-foreground text-lg">
+            <h2 className="text-xl md:text-3xl font-semibold mb-2 md:mb-3 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Upload Your Resume</h2>
+            <p className="text-muted-foreground text-sm md:text-lg px-2">
               Upload a text file (.txt) of your resume to get AI-powered improvement suggestions.
             </p>
           </div>
 
           <div
             className={`
-              relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300
+              relative border-2 border-dashed rounded-xl p-6 md:p-12 text-center transition-all duration-300
               ${isDragOver 
                 ? 'border-primary bg-primary/10' 
                 : 'border-border/50'
@@ -95,11 +89,11 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
           >
-            <div className="p-4 bg-gradient-primary rounded-xl mx-auto mb-6 w-fit shadow-medium">
-              <FileText className="h-8 w-8 text-primary-foreground" />
+            <div className="p-3 md:p-4 bg-gradient-primary rounded-xl mx-auto mb-4 md:mb-6 w-fit shadow-medium">
+              <FileText className="h-6 w-6 md:h-8 md:w-8 text-primary-foreground" />
             </div>
-            <p className="text-xl font-medium mb-3">Drop your resume text file here</p>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-lg md:text-xl font-medium mb-2 md:mb-3">Drop your resume text file here</p>
+            <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
               Supports .txt files only
             </p>
             <input
@@ -112,7 +106,7 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
             {selectedFile && (
-              <div className="mt-4 text-sm text-primary">
+              <div className="mt-3 md:mt-4 text-xs md:text-sm text-primary">
                 Selected: {selectedFile.name}
                 <div className="text-xs text-muted-foreground mt-1">
                   {resumeText.length} characters loaded
@@ -129,12 +123,12 @@ export const ResumeUpload = ({ onResumeSubmit, isAnalyzing }: ResumeUploadProps)
           >
             {isAnalyzing ? (
               <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 md:h-5 md:w-5 animate-spin" />
                 Analyzing Resume...
               </>
             ) : (
               <>
-                <FileText className="mr-2 h-5 w-5" />
+                <FileText className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                 Analyze Resume
               </>
             )}

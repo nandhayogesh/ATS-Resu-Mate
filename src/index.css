@@ -128,3 +128,81 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Mobile-specific optimizations */
+@layer utilities {
+  /* Improve touch targets on mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better scroll behavior on mobile */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent zoom on input focus (iOS) */
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Better tap highlighting */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: rgba(190, 255, 255, 0.2);
+  }
+
+  /* Mobile-friendly gradients */
+  .bg-gradient-steam {
+    background: var(--gradient-steam);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+}
+
+/* Mobile-specific breakpoint adjustments */
+@media (max-width: 768px) {
+  /* Reduce margins and padding on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Better mobile navigation */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+
+  /* Improve mobile form elements */
+  input, textarea, select {
+    min-height: 44px;
+  }
+
+  /* Better mobile cards */
+  .mobile-card {
+    margin-bottom: 1rem;
+    border-radius: 0.75rem;
+  }
+}
+
+/* iPhone X and newer safe area */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
