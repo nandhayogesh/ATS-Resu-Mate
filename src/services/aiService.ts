@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import { supabase } from '@/integrations/supabase/client';
-=======
-
-// Gemini API removed. Prepare for Tesseract OCR and TextRazor/Twinword integration.
->>>>>>> c0b87ae (feat: add TextRazor analysis, text-file upload, remove Gemini/OCR, backend proxy & vercel config)
-
 interface AnalysisResult {
   overallScore: number;
   strengths: string[];
@@ -24,21 +17,6 @@ interface AnalysisResult {
 }
 
 export class AIService {
-<<<<<<< HEAD
-  static async analyzeResume(resumeText: string): Promise<AnalysisResult> {
-    try {
-      // Call the secure Edge Function for AI-powered analysis
-      const { data, error } = await supabase.functions.invoke('analyze-resume', {
-        body: { resumeText }
-      });
-
-      if (error) {
-        console.error('Edge function error:', error);
-        throw error;
-      }
-
-      return data;
-=======
   // Analyze resume text and return improvement suggestions using TextRazor API
   static async analyzeResumeTextForImprovements(resumeText: string): Promise<string[]> {
     try {
@@ -55,6 +33,7 @@ export class AIService {
       throw error;
     }
   }
+
   private static extractSkills(resumeText: string): { name: string; confidence: number }[] {
     // Common technical and professional skills
     const skillPatterns = [
@@ -201,23 +180,17 @@ export class AIService {
 
   static async analyzeResume(resumeText: string): Promise<AnalysisResult> {
     try {
-      // For demo purposes, we'll use local analysis
-      // In production, you would use HuggingFace models here
+      const skills = this.extractSkills(resumeText);
+      const analysis = this.analyzeContent(resumeText);
       
-        // Call backend proxy to avoid CORS
-        const response = await fetch('/api/analyze-resume', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ resumeText })
-        });
-        if (!response.ok) throw new Error('Failed to analyze resume');
-        const data = await response.json();
-        return data.suggestions || [];
->>>>>>> c0b87ae (feat: add TextRazor analysis, text-file upload, remove Gemini/OCR, backend proxy & vercel config)
+      return {
+        ...analysis,
+        skills
+      };
     } catch (error) {
       console.error('Error analyzing resume:', error);
       
-      // Fallback to basic analysis if Edge Function fails
+      // Fallback analysis
       return {
         overallScore: 75,
         strengths: [
